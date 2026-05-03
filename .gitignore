@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Gerados pela interface gráfica / análise
+*.png
+
+# IDE
+.idea/
+.vscode/
+
+.DS_Store

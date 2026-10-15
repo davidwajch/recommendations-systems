@@ -1,14 +1,31 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
 .venv/
 venv/
+env/
+*.egg-info/
+dist/
+build/
 
-# Gerados pela interface gráfica / análise
+# Resultados gerados (exceto documentação)
 *.png
+!docs/img/*.png
+*.jpg
+*.jpeg
+*.gif
 
 # IDE
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
 
+# OS
 .DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/

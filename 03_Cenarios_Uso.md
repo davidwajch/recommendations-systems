@@ -1,6 +1,6 @@
 # Cenários de Uso - Sistema de Recomendação Open Finance
 
-## 📋 Visão Geral
+## Visão Geral
 
 Este documento apresenta cenários fictícios de uso do Sistema de Recomendação da QuantumFinance, demonstrando como o sistema é aplicado na prática para melhorar a experiência do cliente e os resultados de negócio.
 
@@ -171,7 +171,7 @@ O sistema identifica que Claudia tem perfil similar a:
 
 ---
 
-## 🔄 Fluxo de Interação Completo
+## Fluxo de Interação Completo
 
 ### 1. Coleta de Dados
 ```
@@ -204,7 +204,7 @@ Cliente interage (aceita/rejeita) → Sistema aprende → Melhora recomendaçõe
 
 ---
 
-## 📊 Métricas de Sucesso por Cenário
+## Métricas de Sucesso por Cenário
 
 ### Cenário 1 (Ana)
 - **Taxa de conversão esperada**: 20-25%
@@ -248,7 +248,7 @@ Cliente interage (aceita/rejeita) → Sistema aprende → Melhora recomendaçõe
 │                                                          │
 │  ─────────────────────────────────────────────────────  │
 │                                                          │
-│  💡 Recomendações para Você:                            │
+│   Recomendações para Você:                            │
 │                                                          │
 │  ┌──────────────────────────────────────────────────┐  │
 │  │ 1. Conta Corrente                                │  │
@@ -307,7 +307,7 @@ Cliente interage (aceita/rejeita) → Sistema aprende → Melhora recomendaçõe
 
 ---
 
-## 🔄 Ciclo de Aprendizado
+## Ciclo de Aprendizado
 
 ### Feedback Loop
 

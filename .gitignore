@@ -9,8 +9,9 @@ env/
 dist/
 build/
 
-# Resultados gerados
+# Resultados gerados (exceto documentação)
 *.png
+!docs/img/*.png
 *.jpg
 *.jpeg
 *.gif

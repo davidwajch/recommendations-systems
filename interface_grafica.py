@@ -7,10 +7,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from analise import SistemaRecomendacaoOpenFinance, clientes
 import numpy as np
+import os
 
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.rcParams['figure.figsize'] = (14, 10)
 plt.rcParams['font.size'] = 10
+
+# Criar pasta para outputs
+os.makedirs('docs/img', exist_ok=True)
 
 def visualizar_matriz_utilidade(sistema):
     """Gera heatmap da matriz de utilidade."""
@@ -40,8 +44,8 @@ def visualizar_matriz_utilidade(sistema):
     cbar.set_label('Nível de Interação', rotation=270, labelpad=20)
     
     plt.tight_layout()
-    plt.savefig('matriz_utilidade.png', dpi=300, bbox_inches='tight')
-    print("✅ Gráfico salvo: matriz_utilidade.png")
+    plt.savefig('docs/img/matriz_utilidade.png', dpi=300, bbox_inches='tight')
+    print("✅ Gráfico salvo: docs/img/matriz_utilidade.png")
     plt.close()
 
 
@@ -83,7 +87,7 @@ def visualizar_similaridades(sistema, metodo='cosseno'):
     cbar.set_label('Similaridade', rotation=270, labelpad=20)
     
     plt.tight_layout()
-    nome_arquivo = f'similaridades_{metodo}.png'
+    nome_arquivo = f'docs/img/similaridades_{metodo}.png'
     plt.savefig(nome_arquivo, dpi=300, bbox_inches='tight')
     print(f"✅ Gráfico salvo: {nome_arquivo}")
     plt.close()
@@ -133,7 +137,7 @@ def visualizar_recomendacoes_cliente(sistema, cliente, metodo='cosseno'):
         ax2.grid(axis='x', alpha=0.3)
     
     plt.tight_layout()
-    nome_arquivo = f'recomendacoes_{cliente.lower()}.png'
+    nome_arquivo = f'docs/img/recomendacoes_{cliente.lower()}.png'
     plt.savefig(nome_arquivo, dpi=300, bbox_inches='tight')
     print(f"✅ Gráfico salvo: {nome_arquivo}")
     plt.close()
@@ -169,7 +173,7 @@ def visualizar_comparacao_metodos(sistema, cliente='Ana'):
                  fontsize=16, fontweight='bold', y=1.02)
     
     plt.tight_layout()
-    nome_arquivo = f'comparacao_metodos_{cliente.lower()}.png'
+    nome_arquivo = f'docs/img/comparacao_metodos_{cliente.lower()}.png'
     plt.savefig(nome_arquivo, dpi=300, bbox_inches='tight')
     print(f"✅ Gráfico salvo: {nome_arquivo}")
     plt.close()
@@ -223,8 +227,8 @@ def visualizar_dashboard_completo(sistema):
     fig.suptitle('Dashboard Completo - Sistema de Recomendação Open Finance', 
                  fontsize=16, fontweight='bold', y=0.98)
     
-    plt.savefig('dashboard_completo.png', dpi=300, bbox_inches='tight')
-    print("✅ Dashboard completo salvo: dashboard_completo.png")
+    plt.savefig('docs/img/dashboard_completo.png', dpi=300, bbox_inches='tight')
+    print("✅ Dashboard completo salvo: docs/img/dashboard_completo.png")
     plt.close()
 
 
@@ -251,7 +255,7 @@ def main():
     print("\n" + "="*80)
     print("✅ Todas as visualizações foram geradas com sucesso!")
     print("="*80)
-    print("\n📁 Arquivos gerados:")
+    print("\n📁 Arquivos gerados em docs/img/:")
     print("  • matriz_utilidade.png")
     print("  • similaridades_cosseno.png")
     print("  • similaridades_pearson.png")

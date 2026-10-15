@@ -75,7 +75,7 @@ Simula 4 cenários fictícios (Ana, Marcos, Pedro, Claudia) e compara os método
 python interface_grafica.py
 ```
 
-Gera arquivos PNG:
+Gera arquivos PNG em `docs/img/`:
 - `matriz_utilidade.png`: heatmap da matriz de utilidade
 - `similaridades_cosseno.png`, `similaridades_pearson.png`: matrizes de similaridade
 - `recomendacoes_*.png`: gráficos de recomendação por cliente
@@ -90,11 +90,27 @@ Gera arquivos PNG:
 ├── demonstracao_cenarios.py           # Cenários de uso simulados
 ├── interface_grafica.py               # Geração de visualizações
 ├── requirements.txt                   # Dependências
+├── docs/
+│   └── img/                          # Visualizações geradas
 ├── 01_Contexto_Fintech_Objetivo.md    # Contexto de negócio e objetivos
 ├── 02_Arquitetura_Tecnica.md          # Detalhes da arquitetura
 ├── 03_Cenarios_Uso.md                 # Descrição dos cenários
 └── 00_Verificacao_Entregaveis.md      # Checklist de entregáveis
 ```
+
+## Visualizações
+
+O sistema gera diversos gráficos para análise. Exemplos:
+
+### Matriz de Utilidade
+![Matriz de Utilidade](docs/img/matriz_utilidade.png)
+
+Mostra a relação entre clientes e produtos financeiros, com valores representando nível de interação.
+
+### Dashboard Completo
+![Dashboard](docs/img/dashboard_completo.png)
+
+Visão consolidada: matriz de utilidade, similaridades e recomendações por cliente.
 
 ## Dataset
 

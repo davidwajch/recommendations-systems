@@ -1,6 +1,6 @@
 # Desenho Técnico da Arquitetura - Sistema de Recomendação Open Finance
 
-## 🏗️ Visão Geral da Arquitetura
+## Visão Geral da Arquitetura
 
 ### Arquitetura em Camadas
 
@@ -38,7 +38,7 @@
 
 ---
 
-## 🔧 Componentes Principais
+## Componentes Principais
 
 ### 1. Camada de Dados
 
@@ -73,11 +73,11 @@
 #### 2.1 User-Based Collaborative Filtering (Implementado)
 
 **Justificativa da Escolha:**
-- ✅ **Eficácia comprovada**: Técnica amplamente validada em sistemas de recomendação
-- ✅ **Adequação ao contexto**: Ideal quando há sobreposição de produtos entre clientes
-- ✅ **Simplicidade**: Fácil implementação e manutenção
-- ✅ **Interpretabilidade**: Resultados fáceis de explicar para stakeholders
-- ✅ **Baixo custo computacional**: Eficiente para provas de conceito
+- **Eficácia comprovada**: Técnica validada em sistemas de recomendação
+- **Adequação ao contexto**: Ideal quando há sobreposição de produtos entre clientes
+- **Simplicidade**: Fácil implementação e manutenção
+- **Interpretabilidade**: Resultados fáceis de explicar para stakeholders
+- **Baixo custo computacional**: Eficiente para provas de conceito
 
 **Algoritmo:**
 ```
@@ -188,7 +188,7 @@
 
 ---
 
-## 📊 Fluxo de Dados Completo
+## Fluxo de Dados Completo
 
 ```
 ┌──────────────┐
@@ -239,19 +239,19 @@
 
 ---
 
-## 🔐 Segurança e Privacidade
+## Segurança e Privacidade
 
 ### Medidas Implementadas
-- ✅ Autenticação OAuth 2.0 para acesso a dados
-- ✅ Criptografia de dados em trânsito (HTTPS/TLS)
-- ✅ Criptografia de dados em repouso
-- ✅ Logs de auditoria
-- ✅ Anonimização de dados sensíveis
-- ✅ Conformidade com LGPD
+- Autenticação OAuth 2.0 para acesso a dados
+- Criptografia de dados em trânsito (HTTPS/TLS)
+- Criptografia de dados em repouso
+- Logs de auditoria
+- Anonimização de dados sensíveis
+- Conformidade com LGPD
 
 ---
 
-## ⚡ Performance e Escalabilidade
+## Performance e Escalabilidade
 
 ### Otimizações
 - **Cache**: Matrizes de similaridade em cache
@@ -285,13 +285,13 @@
 
 ---
 
-## 📈 Evolução da Arquitetura
+## Evolução da Arquitetura
 
 ### Fase 1: Prova de Conceito (Atual)
-- ✅ User-Based Collaborative Filtering
-- ✅ Dataset reduzido
-- ✅ Cálculo de similaridade (Cosseno e Pearson)
-- ✅ Geração de recomendações básicas
+- User-Based Collaborative Filtering
+- Dataset reduzido
+- Cálculo de similaridade (Cosseno e Pearson)
+- Geração de recomendações básicas
 
 ### Fase 2: MVP
 - ⏳ Integração com Open Finance APIs
@@ -324,7 +324,7 @@
 
 ### Por que duas métricas de similaridade?
 - **Cosseno**: Melhor para dados esparsos, não considera magnitude
-- **Pearson**: Melhor para capturar correlações lineares, robusto a diferenças de escala
+- **Pearson**: Melhor para capturar correlações lineares, funcionalo a diferenças de escala
 - **Flexibilidade**: Permite escolher a melhor métrica por contexto
 
 ### Por que cache?

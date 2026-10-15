@@ -1,6 +1,6 @@
 # Cenários de Uso - Sistema de Recomendação Open Finance
 
-## 📋 Visão Geral
+## Visão Geral
 
 Este documento apresenta cenários fictícios de uso do Sistema de Recomendação da QuantumFinance, demonstrando como o sistema é aplicado na prática para melhorar a experiência do cliente e os resultados de negócio.
 

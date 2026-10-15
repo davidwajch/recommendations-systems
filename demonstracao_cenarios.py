@@ -1,10 +1,10 @@
 """
 Demonstração de Cenários de Uso - Sistema de Recomendação Open Finance
-Este script demonstra cenários fictícios de uso do sistema de recomendação.
+Cenários fictícios simulados
 """
 
 from analise import SistemaRecomendacaoOpenFinance, clientes
-import json
+
 
 def exibir_cenario(cliente_nome: str, descricao: str, sistema):
     """Exibe um cenário de uso formatado."""
@@ -14,21 +14,18 @@ def exibir_cenario(cliente_nome: str, descricao: str, sistema):
     print(f"\n{descricao}\n")
     print("-"*80)
     
-    # Produtos atuais
     produtos_atuais = clientes[cliente_nome]
     print(f"\n📊 Perfil Atual de {cliente_nome}:")
     for produto, rating in sorted(produtos_atuais.items(), key=lambda x: x[1], reverse=True):
         estrelas = "⭐" * int(rating) if rating >= 1 else "☆"
         print(f"  • {produto}: {estrelas} (rating: {rating})")
     
-    # Clientes similares
     similares = sistema.encontrar_clientes_similares(cliente_nome, n=2)
     print(f"\n👥 Clientes com Perfil Similar:")
     for cliente_sim, sim_score in similares:
         porcentagem = sim_score * 100
         print(f"  • {cliente_sim}: {porcentagem:.1f}% de similaridade")
     
-    # Recomendações
     recomendacoes = sistema.gerar_recomendacoes(cliente_nome, n=3)
     print(f"\n💡 Recomendações para {cliente_nome}:")
     if recomendacoes:
@@ -43,67 +40,63 @@ def exibir_cenario(cliente_nome: str, descricao: str, sistema):
 
 
 def cenario_1_ana(sistema):
-    """Cenário 1: Cliente Novo - Ana"""
+    """Cenário 1: Cliente com perfil de investimento."""
     descricao = """
 CONTEXTO:
-Ana é uma profissional liberal de 32 anos, cliente nova na QuantumFinance.
-Ela demonstra preferência por produtos de investimento (Renda Fixa) e crédito 
-(Crédito Pessoal), mas tem baixa interação com produtos básicos.
+Ana é profissional liberal de 32 anos, cliente nova na QuantumFinance.
+Tem preferência por produtos de investimento (Renda Fixa) e crédito,
+mas baixa interação com produtos básicos.
 
 OBJETIVO:
-Identificar produtos que clientes similares utilizam e que podem ser úteis 
-para Ana, aumentando seu engajamento com a plataforma.
+Identificar produtos que clientes similares utilizam para aumentar engajamento.
 """
     exibir_cenario("Ana", descricao, sistema)
 
 
 def cenario_2_marcos(sistema):
-    """Cenário 2: Cliente Ativo - Marcos"""
+    """Cenário 2: Cliente ativo com portfólio diversificado."""
     descricao = """
 CONTEXTO:
-Marcos é um investidor de 45 anos, cliente ativo com portfólio diversificado.
-Ele tem perfil conservador com forte presença em Renda Fixa e Poupança, e 
-recentemente demonstrou interesse em Renda Variável.
+Marcos é investidor de 45 anos com perfil conservador.
+Forte presença em Renda Fixa e Poupança, recentemente demonstrou
+interesse em Renda Variável.
 
 OBJETIVO:
-Recomendar produtos que complementem seu perfil de investidor e que clientes 
-similares utilizam com sucesso.
+Recomendar produtos que complementem perfil de investidor.
 """
     exibir_cenario("Marcos", descricao, sistema)
 
 
 def cenario_3_pedro(sistema):
-    """Cenário 3: Cliente Premium - Pedro"""
+    """Cenário 3: Cliente com alta interação em crédito."""
     descricao = """
 CONTEXTO:
-Pedro é um empresário de 38 anos com alta interação com produtos de crédito.
-Ele não possui produtos de investimento de renda fixa, indicando possível 
-oportunidade de diversificação.
+Pedro é empresário de 38 anos com alta interação em produtos de crédito.
+Não possui produtos de investimento de renda fixa, possível oportunidade
+de diversificação.
 
 OBJETIVO:
-Identificar oportunidades de cross-sell, especialmente produtos de investimento 
-que podem balancear seu perfil financeiro.
+Identificar oportunidades de cross-sell em produtos de investimento.
 """
     exibir_cenario("Pedro", descricao, sistema)
 
 
 def cenario_4_claudia(sistema):
-    """Cenário 4: Cliente Conservador - Claudia"""
+    """Cenário 4: Cliente com perfil conservador."""
     descricao = """
 CONTEXTO:
-Claudia é uma aposentada de 62 anos com perfil muito conservador.
-Ela foca em produtos básicos e seguros, principalmente Poupança.
-Não possui produtos de crédito ou investimentos mais complexos.
+Claudia, 62 anos, aposentada com perfil muito conservador.
+Foco em produtos básicos e seguros, principalmente Poupança.
 
 OBJETIVO:
-Recomendar produtos que mantenham o perfil conservador mas ofereçam melhor 
-retorno, como Renda Fixa, que é mais segura que Renda Variável.
+Recomendar produtos que mantenham perfil conservador mas ofereçam
+melhor retorno, como Renda Fixa.
 """
     exibir_cenario("Claudia", descricao, sistema)
 
 
 def exibir_comparacao_metodos(sistema):
-    """Compara recomendações usando diferentes métodos de similaridade."""
+    """Compara recomendações usando cosseno vs Pearson."""
     print("\n" + "="*80)
     print("COMPARAÇÃO DE MÉTODOS DE SIMILARIDADE")
     print("="*80)
@@ -111,13 +104,11 @@ def exibir_comparacao_metodos(sistema):
     cliente = "Ana"
     print(f"\nRecomendações para {cliente} usando diferentes métodos:\n")
     
-    # Método Cosseno
     rec_cosseno = sistema.gerar_recomendacoes(cliente, n=3, metodo='cosseno')
     print("📐 Similaridade de Cosseno:")
     for produto, score in rec_cosseno:
         print(f"  • {produto}: {score:.3f}")
     
-    # Método Pearson
     rec_pearson = sistema.gerar_recomendacoes(cliente, n=3, metodo='pearson')
     print("\n📊 Correlação de Pearson:")
     for produto, score in rec_pearson:
@@ -127,7 +118,7 @@ def exibir_comparacao_metodos(sistema):
 
 
 def exibir_fluxo_completo(sistema):
-    """Demonstra o fluxo completo de recomendação."""
+    """Demonstra fluxo completo de recomendação."""
     print("\n" + "="*80)
     print("FLUXO COMPLETO DE RECOMENDAÇÃO")
     print("="*80)
@@ -167,38 +158,32 @@ def exibir_fluxo_completo(sistema):
 
 
 def main():
-    """Função principal que executa todos os cenários."""
+    """Executa todos os cenários de demonstração."""
     print("="*80)
     print("DEMONSTRAÇÃO DE CENÁRIOS DE USO")
     print("Sistema de Recomendação - Open Finance - QuantumFinance")
     print("="*80)
     
-    # Inicializar sistema
     sistema = SistemaRecomendacaoOpenFinance(clientes)
     
-    # Executar cenários
     cenario_1_ana(sistema)
     cenario_2_marcos(sistema)
     cenario_3_pedro(sistema)
     cenario_4_claudia(sistema)
     
-    # Comparação de métodos
     exibir_comparacao_metodos(sistema)
-    
-    # Fluxo completo
     exibir_fluxo_completo(sistema)
     
     print("\n" + "="*80)
     print("Demonstração concluída!")
     print("="*80)
     print("\n📝 Notas:")
-    print("• Todos os cenários são fictícios e para fins de demonstração")
-    print("• Os dados são baseados no dataset fornecido do Open Finance")
-    print("• Em produção, o sistema utilizaria dados reais e atualizados")
-    print("• O feedback dos clientes melhoraria as recomendações ao longo do tempo")
+    print("• Todos os cenários são fictícios para fins de demonstração")
+    print("• Dados baseados no dataset fornecido do Open Finance")
+    print("• Em produção, sistema utilizaria dados reais e atualizados")
+    print("• Feedback dos clientes melhoraria recomendações ao longo do tempo")
     print("="*80)
 
 
 if __name__ == "__main__":
     main()
-

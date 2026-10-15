@@ -1,6 +1,6 @@
 """
-Interface Gráfica para Visualização de Recomendações
-Sistema de Recomendação - Open Finance - QuantumFinance
+Interface Gráfica para Sistema de Recomendação - Open Finance
+Geração de visualizações e dashboards
 """
 
 import matplotlib.pyplot as plt
@@ -8,25 +8,22 @@ import matplotlib.patches as mpatches
 from analise import SistemaRecomendacaoOpenFinance, clientes
 import numpy as np
 
-# Configurar estilo
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.rcParams['figure.figsize'] = (14, 10)
 plt.rcParams['font.size'] = 10
 
 def visualizar_matriz_utilidade(sistema):
-    """Visualiza a matriz de utilidade como heatmap."""
+    """Gera heatmap da matriz de utilidade."""
     fig, ax = plt.subplots(figsize=(12, 6))
     
     matriz = sistema.matriz_utilidade
     im = ax.imshow(matriz.values, cmap='YlOrRd', aspect='auto')
     
-    # Configurar eixos
     ax.set_xticks(np.arange(len(matriz.columns)))
     ax.set_yticks(np.arange(len(matriz.index)))
     ax.set_xticklabels(matriz.columns, rotation=45, ha='right')
     ax.set_yticklabels(matriz.index)
     
-    # Adicionar valores nas células
     for i in range(len(matriz.index)):
         for j in range(len(matriz.columns)):
             valor = matriz.iloc[i, j]
@@ -39,7 +36,6 @@ def visualizar_matriz_utilidade(sistema):
     ax.set_xlabel('Produtos Financeiros', fontsize=12)
     ax.set_ylabel('Clientes', fontsize=12)
     
-    # Adicionar colorbar
     cbar = plt.colorbar(im, ax=ax)
     cbar.set_label('Nível de Interação', rotation=270, labelpad=20)
     
@@ -50,13 +46,12 @@ def visualizar_matriz_utilidade(sistema):
 
 
 def visualizar_similaridades(sistema, metodo='cosseno'):
-    """Visualiza a matriz de similaridades como heatmap."""
+    """Gera heatmap da matriz de similaridades."""
     fig, ax = plt.subplots(figsize=(10, 8))
     
     clientes_lista = list(clientes.keys())
     n = len(clientes_lista)
     
-    # Criar matriz de similaridades
     matriz_sim = np.zeros((n, n))
     for i, cliente1 in enumerate(clientes_lista):
         for j, cliente2 in enumerate(clientes_lista):
@@ -67,13 +62,11 @@ def visualizar_similaridades(sistema, metodo='cosseno'):
     
     im = ax.imshow(matriz_sim, cmap='RdYlGn', aspect='auto', vmin=-1, vmax=1)
     
-    # Configurar eixos
     ax.set_xticks(np.arange(n))
     ax.set_yticks(np.arange(n))
     ax.set_xticklabels(clientes_lista)
     ax.set_yticklabels(clientes_lista)
     
-    # Adicionar valores nas células
     for i in range(n):
         for j in range(n):
             valor = matriz_sim[i, j]
@@ -86,7 +79,6 @@ def visualizar_similaridades(sistema, metodo='cosseno'):
     ax.set_xlabel('Clientes', fontsize=12)
     ax.set_ylabel('Clientes', fontsize=12)
     
-    # Adicionar colorbar
     cbar = plt.colorbar(im, ax=ax)
     cbar.set_label('Similaridade', rotation=270, labelpad=20)
     
@@ -98,31 +90,26 @@ def visualizar_similaridades(sistema, metodo='cosseno'):
 
 
 def visualizar_recomendacoes_cliente(sistema, cliente, metodo='cosseno'):
-    """Visualiza recomendações para um cliente específico."""
+    """Gera visualização de recomendações para um cliente específico."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
     
-    # Gráfico 1: Produtos Atuais vs Recomendações
     produtos_atuais = clientes[cliente]
     recomendacoes = sistema.gerar_recomendacoes(cliente, n=5, metodo=metodo)
     
-    # Preparar dados
     produtos = list(produtos_atuais.keys())
     ratings = list(produtos_atuais.values())
     cores_atuais = ['#2ecc71'] * len(produtos)
     
-    # Adicionar recomendações
     produtos_rec = [r[0] for r in recomendacoes]
     scores_rec = [r[1] for r in recomendacoes]
     cores_rec = ['#e74c3c'] * len(produtos_rec)
     
-    # Gráfico de barras
     x_pos_atuais = np.arange(len(produtos))
     x_pos_rec = np.arange(len(produtos), len(produtos) + len(produtos_rec))
     
     ax1.bar(x_pos_atuais, ratings, color=cores_atuais, alpha=0.7, label='Produtos Atuais')
     ax1.bar(x_pos_rec, scores_rec, color=cores_rec, alpha=0.7, label='Recomendações')
     
-    # Configurar eixos
     todos_produtos = produtos + produtos_rec
     ax1.set_xticks(np.arange(len(todos_produtos)))
     ax1.set_xticklabels(todos_produtos, rotation=45, ha='right')
@@ -131,7 +118,6 @@ def visualizar_recomendacoes_cliente(sistema, cliente, metodo='cosseno'):
     ax1.legend()
     ax1.grid(axis='y', alpha=0.3)
     
-    # Gráfico 2: Top Recomendações
     if recomendacoes:
         produtos_top = [r[0] for r in recomendacoes[:5]]
         scores_top = [r[1] for r in recomendacoes[:5]]
@@ -139,7 +125,6 @@ def visualizar_recomendacoes_cliente(sistema, cliente, metodo='cosseno'):
         cores = plt.cm.Reds(np.linspace(0.4, 0.9, len(produtos_top)))
         bars = ax2.barh(produtos_top, scores_top, color=cores)
         
-        # Adicionar valores nas barras
         for i, (bar, score) in enumerate(zip(bars, scores_top)):
             ax2.text(score, i, f' {score:.3f}', va='center', fontweight='bold')
         
@@ -155,10 +140,9 @@ def visualizar_recomendacoes_cliente(sistema, cliente, metodo='cosseno'):
 
 
 def visualizar_comparacao_metodos(sistema, cliente='Ana'):
-    """Compara recomendações usando diferentes métodos."""
+    """Compara recomendações usando cosseno vs Pearson."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
     
-    # Método Cosseno
     rec_cosseno = sistema.gerar_recomendacoes(cliente, n=5, metodo='cosseno')
     produtos_cos = [r[0] for r in rec_cosseno]
     scores_cos = [r[1] for r in rec_cosseno]
@@ -170,7 +154,6 @@ def visualizar_comparacao_metodos(sistema, cliente='Ana'):
     ax1.set_title('Similaridade de Cosseno', fontsize=14, fontweight='bold')
     ax1.grid(axis='x', alpha=0.3)
     
-    # Método Pearson
     rec_pearson = sistema.gerar_recomendacoes(cliente, n=5, metodo='pearson')
     produtos_pear = [r[0] for r in rec_pearson]
     scores_pear = [r[1] for r in rec_pearson]
@@ -193,11 +176,10 @@ def visualizar_comparacao_metodos(sistema, cliente='Ana'):
 
 
 def visualizar_dashboard_completo(sistema):
-    """Cria um dashboard completo com múltiplas visualizações."""
+    """Cria dashboard com múltiplas visualizações."""
     fig = plt.figure(figsize=(18, 12))
     gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
     
-    # 1. Matriz de Utilidade
     ax1 = fig.add_subplot(gs[0, :2])
     matriz = sistema.matriz_utilidade
     im1 = ax1.imshow(matriz.values, cmap='YlOrRd', aspect='auto')
@@ -208,7 +190,6 @@ def visualizar_dashboard_completo(sistema):
     ax1.set_title('Matriz de Utilidade', fontsize=12, fontweight='bold')
     plt.colorbar(im1, ax=ax1)
     
-    # 2. Similaridades (Cosseno)
     ax2 = fig.add_subplot(gs[0, 2])
     clientes_lista = list(clientes.keys())
     n = len(clientes_lista)
@@ -224,7 +205,6 @@ def visualizar_dashboard_completo(sistema):
     ax2.set_title('Similaridades (Cosseno)', fontsize=12, fontweight='bold')
     plt.colorbar(im2, ax=ax2)
     
-    # 3-6. Recomendações por cliente
     for idx, cliente in enumerate(clientes_lista[:4]):
         row = 1 + (idx // 2)
         col = (idx % 2)
@@ -249,17 +229,15 @@ def visualizar_dashboard_completo(sistema):
 
 
 def main():
-    """Função principal que gera todas as visualizações."""
+    """Gera todas as visualizações."""
     print("="*80)
     print("GERANDO INTERFACE GRÁFICA - SISTEMA DE RECOMENDAÇÃO")
     print("="*80)
     
-    # Inicializar sistema
     sistema = SistemaRecomendacaoOpenFinance(clientes)
     
     print("\n📊 Gerando visualizações...\n")
     
-    # Gerar todas as visualizações
     visualizar_matriz_utilidade(sistema)
     visualizar_similaridades(sistema, metodo='cosseno')
     visualizar_similaridades(sistema, metodo='pearson')
